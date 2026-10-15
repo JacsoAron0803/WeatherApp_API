@@ -50,7 +50,7 @@ app.post('/users/register', (req, res)=> {
             return res.status(400).json({error: 'This email already exists'})
         }
         //insert new user into database
-        pool.query('INSERT INTO users (name, email, passwd, role) VALUES (?, ?, SHA1(?), "user")', [name, email, passwd], (error, results)=>{
+        pool.query('INSERT INTO users (name, email, passwd, role, status) VALUES (?, ?, SHA1(?), "user", 1)', [name, email, passwd], (error, results)=>{
             if (error){
                 return res.status(500).json({error:'Database query error'})
             }
