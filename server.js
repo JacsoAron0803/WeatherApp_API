@@ -525,6 +525,19 @@ app.delete('/admin/weather/:weatherID', (req, res) => {
         });
     });
 });
+
+
+app.get('/weather', (req, res) => {
+
+    pool.query(`SELECT ID, date, location, temp_min, temp_max, weather_type, precipitation, precipitation_probability, wind_speed, wind_direction, humidity, pressure, uv_index,
+        created_at, updated_at FROM weather_forecasts ORDER BY date, location`, (error, results) => {
+        if (error) {
+            return res.status(500).json({error: 'Database query error'});
+        }
+
+        return res.status(200).json({results: results});
+    });
+});
 app.listen(port, () => {
     console.log(`A szerver fut a ${port} porton.`);
 });
