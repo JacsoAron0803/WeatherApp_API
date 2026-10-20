@@ -44,7 +44,7 @@ app.post('/users/register', (req, res)=> {
 
     pool.query('SELECT * FROM users WHERE email = ?', [email], (error, results)=>{
         if (error){
-            return res.status(500).json({error: 'Database query error'})
+            return res.status(500).json({error})
         }
         if (results.length > 0){
             return res.status(400).json({error: 'This email already exists'})
@@ -59,7 +59,7 @@ app.post('/users/register', (req, res)=> {
     })
     
 
-})
+});
 //login
 app.post('/users/login', (req, res)=>{
     const {email, passwd} = req.body;
